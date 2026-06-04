@@ -1,12 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-  <title>YUMEYKHA</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YUMEYKHA</title>
   <style>
-    body{background:#000;color:#fff;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;font-family:Arial}h1{font-size:50px;letter-spacing:5px}
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 40px 30px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      max-width: 500px;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+    }
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background: white;
+      color: #764ba2;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: bold;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
   </style>
 </head>
-<body><h1>YUMEYKHA</h1></body>
+<body>
+  <div class="container">
+    <h1>YUMEYKHA</h1>
+    <p>Selamat datang di website resmi YUMEYKHA</p>
+    <a href="#" class="btn">Coming Soon</a>
+  </div>
+</body>
 </html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yumeikha Developer</title>
+    <link rel="icon" href="icon-y.png">
+    <style>
+        :root {
+            --bg:#0f172a;--text:#e2e8f0;--primary:#60a5fa;--card:#1e293b;--border:#334155;--bg2:#020617;
+        }
+        [data-theme="light"] {
+            --bg:#ffffff;--text:#1a1a1a;--primary:#3b82f6;--card:#f3f4f6;--border:#e5e7eb;--bg2:#f8fafc;
+        }
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+        body{background:var(--bg);color:var(--text);transition:.3s}
+        .container{max-width:1400px;margin:0 auto;padding:0 16px}
+        nav{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--border);z-index:999}
+        .nav-wrap{display:flex;justify-content:space-between;align-items:center;padding:12px 0;gap:12px}
+        .nav-left{display:flex;align-items:center;gap:12px}
+        .hamburger{display:none;font-size:24px;cursor:pointer;padding:4px 8px;line-height:1}
+        .logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:18px;color:var(--primary);flex-shrink:0}
+        .logo img{width:28px;height:28px;border-radius:6px}
+        .menu{display:flex;gap:20px;align-items:center}
+        .menu a{text-decoration:none;color:var(--text);font-weight:500;white-space:nowrap}
+        .menu a:hover{color:var(--primary)}
+        .dropdown{position:relative}
+        .dropdown-content{display:none;position:absolute;background:var(--card);border:1px solid var(--border);border-radius:8px;min-width:200px;top:100%;left:0;max-height:300px;overflow-y:auto}
+        .dropdown:hover .dropdown-content{display:block}
+        .dropdown-content a{display:block;padding:10px 16px;font-size:14px}
+        .tools{display:flex;gap:8px;align-items:center;flex-shrink:0}
+        .btn{background:var(--card);border:1px solid var(--border);padding:8px 12px;border-radius:8px;cursor:pointer;color:var(--text)}
+        .main{display:grid;grid-template-columns:220px 1fr 300px;gap:24px;margin:24px 0}
+        .sidebar,.update{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;height:fit-content;position:sticky;top:80px}
+        .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px}
+        .tag{display:inline-block;background:var(--primary);color:white;padding:2px 8px;border-radius:6px;font-size:12px;margin-right:6px}
+        .sidebar a{display:block;padding:8px 0;color:var(--text);text-decoration:none;border-bottom:1px solid var(--border)}
+        /* MOBILE */
+        @media(max-width:768px){
+            .menu{position:fixed;top:60px;left:-100%;flex-direction:column;background:var(--bg);width:100%;padding:20px;border-bottom:1px solid var(--border);transition:.3s;align-items:start}
+            .menu.active{left:0}
+            .hamburger{display:block}
+            .main{grid-template-columns:1fr}.sidebar,.update{display:none}
+            .logo span{font-size:16px}
+            .dropdown-content{position:static;border:none;background:transparent;display:block;padding-left:16px}
+            .dropdown:hover .dropdown-content{display:block}
+        }
+        .footer{text-align:center;padding:24px 0;border-top:1px solid var(--border);margin-top:40px;font-size:14px;background:var(--bg2)}
+        #google_translate_element select{background:var(--card);color:var(--text);border:1px solid var(--border);padding:6px;border-radius:6px;font-size:12px;max-width:100px}
+        .goog-te-gadget{font-size:0!important}
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container nav-wrap">
+            <div class="nav-left">
+                <div class="hamburger" onclick="toggleMenu()">☰</div>
+                <div class="logo">
+                    <img src="icon-y.png" alt="Logo">
+                    <span id="brand-name">Yumeikha Developer</span>
+                </div>
+            </div>
+            <div class="menu" id="nav-menu">
+                <a href="#" onclick="loadPage('home');toggleMenu()">Home</a>
+                <div class="dropdown">
+                    <a href="#">Materi ↓</a>
+                    <div class="dropdown-content" id="materi-menu"></div>
+                </div>
+                <a href="#" onclick="loadPage('tentang');toggleMenu()">Tentang</a>
+                <a href="#" onclick="loadPage('kontak');toggleMenu()">Kontak</a>
+            </div>
+            <div class="tools">
+                <div id="google_translate_element"></div>
+                <button class="btn" onclick="toggleTheme()" id="theme-btn">☀️</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container main">
+        <aside class="sidebar">
+            <h3>📚 Daftar Materi</h3>
+            <div id="sidebar-materi"></div>
+        </aside>
+        <main class="content" id="main-content"></main>
+        <aside class="update">
+            <h3>🔥 Update Terbaru</h3>
+            <div id="update-list"></div>
+        </aside>
+    </div>
+
+    <footer class="footer">
+        <p>© 2026 <span id="brand-footer">Yumeikha Developer</span> | Build with 💙</p>
+    </footer>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({pageLanguage: 'id',includedLanguages: 'id,en,ja',layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+}
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+let CONFIG = {}, MATERI = [];
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(e.key))) e.preventDefault();});
+function sanitize(str) {const temp = document.createElement('div');temp.textContent = str;return temp.innerHTML;}
+function toggleMenu(){document.getElementById('nav-menu').classList.toggle('active')}
+function toggleTheme() {
+    const html = document.documentElement;
+    const newTheme = html.dataset.theme === 'light' ? 'dark' : 'light';
+    html.dataset.theme = newTheme;
+    document.getElementById('theme-btn').textContent = newTheme === 'light' ? '🌙' : '☀️';
+    localStorage.setItem('theme', newTheme);
+}
+const savedTheme = localStorage.getItem('theme') || 'dark';
+document.documentElement.dataset.theme = savedTheme;
+document.getElementById('theme-btn').textContent = savedTheme === 'light' ? '🌙' : '☀️';
+
+async function init() {
+    try {
+        CONFIG = await fetch('config.json').then(r => r.json());
+        MATERI = await fetch('materi.json').then(r => r.json());
+        document.getElementById('brand-name').textContent = CONFIG.brand;
+        document.getElementById('brand-footer').textContent = CONFIG.brand;
+        document.title = CONFIG.brand;
+        renderMateriMenu();
+        renderSidebar();
+        renderUpdate();
+        loadPage('home');
+    } catch(e) {
+        document.getElementById('main-content').innerHTML = `<div class="card"><h2>Error</h2><p>Upload dulu config.json dan materi.json bos.</p></div>`;
+    }
+}
+function renderMateriMenu() {
+    document.getElementById('materi-menu').innerHTML = MATERI.map(m => `<a href="#" onclick="loadMateri('${m.slug}');toggleMenu()">${sanitize(m.judul)}</a>`).join('') || '<a href="#">Belum ada materi</a>';
+}
+function renderSidebar() {
+    document.getElementById('sidebar-materi').innerHTML = MATERI.map(m => `<a href="#" onclick="loadMateri('${m.slug}')">${sanitize(m.judul)}</a>`).join('') || '<p>Belum ada materi</p>';
+}
+function renderUpdate() {
+    const latest = [...MATERI].sort((a,b) => new Date(b.tanggal) - new Date(a.tanggal)).slice(0,3);
+    document.getElementById('update-list').innerHTML = latest.map(m => `
+        <div class="card" style="padding:12px;margin-bottom:12px">
+            <a href="#" onclick="loadMateri('${m.slug}')" style="text-decoration:none;color:var(--text)"><b>${sanitize(m.judul)}</b></a>
+            <p style="font-size:12px;margin-top:4px;opacity:.7">${sanitize(m.tanggal)}</p>
+        </div>`).join('') || '<p>Belum ada update</p>';
+}
+function loadPage(page) {
+    const main = document.getElementById('main-content');
+    if(page === 'home') {
+        main.innerHTML = `<h1>Selamat Datang di ${sanitize(CONFIG.brand)}</h1>
+            <p style="margin-bottom:20px">${sanitize(CONFIG.deskripsi)}</p>
+            <h2 style="margin:20px 0 12px">Daftar Materi</h2>
+            ${MATERI.map(m => `
+                <div class="card">
+                    <h3><a href="#" onclick="loadMateri('${m.slug}')" style="text-decoration:none;color:var(--primary)">${sanitize(m.judul)}</a></h3>
+                    <p style="margin:8px 0">${sanitize(m.deskripsi)}</p>
+                    ${m.tags.map(t => `<span class="tag">${sanitize(t)}</span>`).join('')}
+                </div>`).join('') || '<div class="card">Belum ada materi. Tambah di materi.json</div>'}`;
+    } else if(page === 'tentang') {
+        main.innerHTML = `<h1>Tentang Kami</h1><div class="card">${CONFIG.tentang}</div>`;
+    } else if(page === 'kontak') {
+        main.innerHTML = `<h1>Kontak</h1><div class="card">
+            <p><b>WhatsApp:</b> <a href="https://wa.me/${CONFIG.wa}" target="_blank">${sanitize(CONFIG.wa)}</a></p>
+            <p><b>Email:</b> ${sanitize(CONFIG.email)}</p>
+        </div>`;
+    }
+    window.scrollTo(0,0);
+}
+function loadMateri(slug) {
+    const m = MATERI.find(x => x.slug === slug);
+    if(!m) return;
+    document.getElementById('main-content').innerHTML = `<h1>${sanitize(m.judul)}</h1>
+        <p style="opacity:.7;margin-bottom:16px">${sanitize(m.tanggal)} | ${m.tags.map(t => `<span class="tag">${sanitize(t)}</span>`).join('')}</p>
+        <div class="card">${m.konten}</div>
+        <button class="btn" onclick="loadPage('home')" style="margin-top:16px">← Kembali ke Home</button>`;
+    window.scrollTo(0,0);
+}
+init();
+</script>
+</body>
+</html>

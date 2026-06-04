@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yumeikha Developer</title>
+    <link rel="icon" href="icon-y.png">
+    <style>
+        :root {
+            --bg: #ffffff; --text: #1a1a1a; --primary: #3b82f6; --card: #f3f4f6; --border: #e5e7eb;
+        }
+        [data-theme="dark"] {
+            --bg: #0f172a; --text: #e2e8f0; --primary: #60a5fa; --card: #1e293b; --border: #334155;
+        }
+        * {margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+        body {background:var(--bg);color:var(--text);transition:0.3s}
+        .container {max-width:1400px;margin:0 auto;padding:0 16px}
+        /* Navbar */
+        nav {position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--border);z-index:999}
+        .nav-wrap {display:flex;justify-content:space-between;align-items:center;padding:12px 0}
+        .logo {display:flex;align-items:center;gap:8px;font-weight:700;font-size:20px;color:var(--primary)}
+        .logo img {width:32px;height:32px}
+        .menu {display:flex;gap:20px;align-items:center}
+        .menu a {text-decoration:none;color:var(--text);font-weight:500}
+        .menu a:hover {color:var(--primary)}
+        .dropdown {position:relative}
+        .dropdown-content {display:none;position:absolute;background:var(--card);border:1px solid var(--border);border-radius:8px;min-width:160px;top:100%;left:0}
+        .dropdown:hover .dropdown-content {display:block}
+        .dropdown-content a {display:block;padding:10px 16px}
+        .tools {display:flex;gap:8px;align-items:center}
+        .btn {background:var(--card);border:1px solid var(--border);padding:8px 12px;border-radius:8px;cursor:pointer}
+        .btn:hover {border-color:var(--primary)}
+        /* Layout 3 Kolom */
+        .main {display:grid;grid-template-columns:200px 1fr 300px;gap:24px;margin:24px 0}
+        .sidebar,.update {background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;height:fit-content}
+        .content h1 {margin-bottom:8px}
+        .card {background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px}
+        .tag {display:inline-block;background:var(--primary);color:white;padding:2px 8px;border-radius:6px;font-size:12px;margin-right:6px}
+        /* Mobile */
+        @media(max-width:1024px){.main{grid-template-columns:1fr}.sidebar,.update{display:none}}
+        .footer {text-align:center;padding:24px 0;border-top:1px solid var(--border);margin-top:40px;font-size:14px}
+        #google_translate_element select {background:var(--card);color:var(--text);border:1px solid var(--border);padding:6px;border-radius:6px}
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container nav-wrap">
+            <div class="logo">
+                <img src="icon-y.png" alt="Logo">
+                <span id="brand-name">Yumeikha Developer</span>
+            </div>
+            <div class="menu">
+                <a href="#" onclick="loadPage('home')">Home</a>
+                <div class="dropdown">
+                    <a href="#">Materi ↓</a>
+                    <div class="dropdown-content" id="materi-menu"></div>
+                </div>
+                <a href="#" onclick="loadPage('tentang')">Tentang</a>
+                <a href="#" onclick="loadPage('kontak')">Kontak</a>
+            </div>
+            <div class="tools">
+                <div id="google_translate_element"></div>
+                <button class="btn" onclick="toggleTheme()" id="theme-btn">🌙</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container main">
+        <aside class="sidebar">
+            <h3>📚 Daftar Materi</h3>
+            <div id="sidebar-materi"></div>
+        </aside>
+        
+        <main class="content" id="main-content"></main>
+        
+        <aside class="update">
+            <h3>🔥 Update Terbaru</h3>
+            <div id="update-list"></div>
+        </aside>
+    </div>
+
+    <footer class="footer">
+        <p>© 2026 <span id="brand-footer">Yumeikha Developer</span> | Build with 💙</p>
+    </footer>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'id',
+        includedLanguages: 'id,en,ja',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+}
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+let CONFIG = {}, MATERI = [];
+
+// 1. Anti Inspect
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+    if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) e.preventDefault();
+});
+
+// 2. Anti XSS 
+function sanitize(html) {
+    const div = document.createElement('div');
+    div.textContent = html;
+    return div.innerHTML;
+}
+
+// 3. Theme Toggle
+function toggleTheme() {
+    const html = document.documentElement;
+    const newTheme = html.dataset.theme === 'light' ? 'dark' : 'light';
+    html.dataset.theme = newTheme;
+    document.getElementById('theme-btn').textContent = newTheme === 'light' ? '🌙' : '☀️';
+    localStorage.setItem('theme', newTheme);
+}
+if(localStorage.getItem('theme')) {
+    document.documentElement.dataset.theme = localStorage.getItem('theme');
+    document.getElementById('theme-btn').textContent = localStorage.getItem('theme') === 'light' ? '🌙' : '☀️';
+}
+
+// 4. Load Data
+async function init() {
+    CONFIG = await fetch('config.json').then(r => r.json());
+    MATERI = await fetch('materi.json').then(r => r.json());
+    
+    document.getElementById('brand-name').textContent = CONFIG.brand;
+    document.getElementById('brand-footer').textContent = CONFIG.brand;
+    document.title = CONFIG.brand;
+    
+    renderMateriMenu();
+    renderSidebar();
+    renderUpdate();
+    loadPage('home');
+}
+
+function renderMateriMenu() {
+    const menu = document.getElementById('materi-menu');
+    menu.innerHTML = MATERI.map(m => 
+        `<a href="#" onclick="loadMateri('${m.slug}')">${m.judul}</a>`
+    ).join('');
+}
+
+function renderSidebar() {
+    const sidebar = document.getElementById('sidebar-materi');
+    sidebar.innerHTML = MATERI.map(m => 
+        `<p><a href="#" onclick="loadMateri('${m.slug}')">${m.judul}</a></p>`
+    ).join('');
+}
+
+function renderUpdate() {
+    const update = document.getElementById('update-list');
+    const latest = [...MATERI].sort((a,b) => new Date(b.tanggal) - new Date(a.tanggal)).slice(0,3);
+    update.innerHTML = latest.map(m => 
+        `<div class="card" style="padding:12px;margin-bottom:12px">
+            <a href="#" onclick="loadMateri('${m.slug}')"><b>${m.judul}</b></a>
+            <p style="font-size:12px;margin-top:4px">${m.tanggal}</p>
+        </div>`
+    ).join('');
+}
+
+function loadPage(page) {
+    const main = document.getElementById('main-content');
+    if(page === 'home') {
+        main.innerHTML = `<h1>Selamat Datang di ${CONFIG.brand}</h1>
+            <p>${CONFIG.deskripsi}</p>
+            <div style="margin-top:20px">${MATERI.map(m => `
+                <div class="card">
+                    <h2><a href="#" onclick="loadMateri('${m.slug}')">${m.judul}</a></h2>
+                    <p>${m.deskripsi}</p>
+                    ${m.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+                </div>`).join('')}
+            </div>`;
+    } else if(page === 'tentang') {
+        main.innerHTML = `<h1>Tentang</h1><div class="card">${CONFIG.tentang}</div>`;
+    } else if(page === 'kontak') {
+        main.innerHTML = `<h1>Kontak</h1><div class="card">
+            <p>WhatsApp: <a href="https://wa.me/${CONFIG.wa}">${CONFIG.wa}</a></p>
+            <p>Email: ${CONFIG.email}</p>
+        </div>`;
+    }
+}
+
+function loadMateri(slug) {
+    const m = MATERI.find(x => x.slug === slug);
+    const main = document.getElementById('main-content');
+    main.innerHTML = `<h1>${m.judul}</h1>
+        <p style="color:#64748b">${m.tanggal} | ${m.tags.map(t => `<span class="tag">${t}</span>`).join('')}</p>
+        <div class="card" style="margin-top:16px">${m.konten}</div>`;
+}
+
+init();
+</script>
+</body>
+</html>

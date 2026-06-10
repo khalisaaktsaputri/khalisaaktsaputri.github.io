@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Core Contributor - Yumeykha's Space</title>
+    <style>
+        :root {
+            --bg-color: #fcfbfa;
+            --panel-color: #ffffff;
+            --text-color: #2d3748;
+            --text-muted: #718096;
+            --accent-color: #e5a99e;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-color); padding: 50px 24px; -webkit-font-smoothing: antialiased; }
+        .container { max-width: 650px; margin: 0 auto; }
+        
+        /* Navigasi */
+        .back-btn { display: inline-block; color: var(--accent-color); text-decoration: none; font-weight: 600; margin-bottom: 40px; font-size: 0.9rem; transition: 0.2s; }
+        .back-btn:hover { color: #d49387; transform: translateX(-2px); }
+        
+        /* Header Profil */
+        .profile-header { border-bottom: 1px solid #edf2f7; padding-bottom: 25px; margin-bottom: 35px; }
+        .role-tag { display: inline-block; font-size: 0.8rem; font-weight: 700; color: var(--accent-color); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+        h1 { font-size: 2.4rem; font-weight: 700; color: var(--text-color); letter-spacing: -0.5px; }
+        
+        /* Deskripsi Utama */
+        .headline { font-size: 1.15rem; line-height: 1.7; color: #4a5568; margin-bottom: 40px; font-weight: 400; }
+        
+        /* Blok Informasi (Seksi Formal) */
+        .section-title { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 15px; }
+        .info-grid { display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; }
+        .info-row { display: flex; border-bottom: 1px solid #f7fafc; padding-bottom: 12px; font-size: 1rem; }
+        .info-label { width: 150px; font-weight: 600; color: var(--text-muted); }
+        .info-value { color: var(--text-color); font-weight: 500; }
+        
+        /* Fokus Riset / Kompetensi */
+        .spec-list { display: flex; flex-wrap: wrap; gap: 10px; }
+        .spec-badge { background: var(--panel-color); border: 1px solid #edf2f7; color: var(--text-color); padding: 8px 16px; border-radius: 6px; font-size: 0.9rem; font-weight: 500; box-shadow: 0 2px 4px rgba(0,0,0,0.01); }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="index.html" class="back-btn">← Back to Dashboard</a>
+        
+        <div class="profile-header">
+            <span class="role-tag">Core Contributor / Founder</span>
+            <h1>Yumeykha</h1>
+        </div>
+        
+        <p class="headline">
+            Individu yang berfokus pada pengembangan sistem web berbasis arsitektur statis, manajemen jaringan domain personal, serta dokumentasi resolusi anomali sistem (*bug fixes*). Mengembangkan ruang digital ini sebagai pustaka teknis mandiri.
+        </p>
+        
+        <!-- Seksi Manifes / Visi Formal -->
+        <h2 class="section-title">Core Objective</h2>
+        <div class="info-grid">
+            <div class="info-row">
+                <p style="color: #4a5568; line-height: 1.6; font-size: 1rem;">
+                    Membangun infrastruktur digital yang efisien, mengoptimalkan integrasi antara penyimpanan berbasis awan (*cloud-based hosting*), dan menyajikan visualisasi data yang minimalis serta fungsional.
+                </p>
+            </div>
+        </div>
+        
+        <!-- Seksi Spesifikasi Sistem Profil -->
+        <h2 class="section-title">Profile Directory</h2>
+        <div class="info-grid">
+            <div class="info-row">
+                <div class="info-label">Otoritas</div>
+                <div class="info-value">System Administrator & Content Creator</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Fokus Utama</div>
+                <div class="info-value">Web Development & Network Configuration</div>
+            </div>
+            <div class="info-row">
+                <div class="info-label">Metodologi</div>
+                <div class="info-value">Build in Public & Dynamic Data Fetching</div>
+            </div>
+        </div>
+
+        <!-- Seksi Kompetensi Teknis -->
+        <h2 class="section-title">Areas of Interest</h2>
+        <div class="spec-list">
+            <div class="spec-badge">Front-End Engineering</div>
+            <div class="spec-badge">DNS Routing</div>
+            <div class="spec-badge">Custom Architecture</div>
+            <div class="spec-badge">Debugging Control</div>
+        </div>
+    </div>
+
+</body>
+</html>

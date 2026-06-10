@@ -1,7 +1,0 @@
-{
-  "judul": "Bab 1: Logika Algoritma - Fondasi Programmer",
-  "slug": "logika-algoritma",
-  "deskripsi": "Belajar cara mikir kayak programmer sebelum nulis kode. Ini fondasi paling penting.",
-  "tanggal": "2026-06-04",
-  "tags": ["logika", "dasar", "wajib"],
-  "konten": "<h2>Ngoding Itu 90% Mikir, 10% Ngetik</h2><p>Banyak pemula langsung lompat ke HTML, CSS, JS. Hasilnya? Bingung pas error. Kuncinya ada di <b>logika algoritma</b>.</p><h2>Apa Itu Algoritma?</h2><p>Algoritma = langkah-langkah buat nyelesaiin masalah. Kayak resep masak mie instan:</p><ol><li>Rebus air</li><li>Masukin mie</li><li>Tunggu 3 menit</li><li>Tiriskan, kasih bumbu</li><li>Aduk, selesai</li></ol><p>Kalo urutannya kebalik? Jadi bubur. Ngoding juga gitu.</p><h2>Contoh Kasus: Bikin Kopi</h2><p><b>Algoritma bikin kopi:</b></p><pre>1. Siapin gelas, kopi, gula, air panas\n2. Masukkan 2 sendok kopi ke gelas\n3. Masukkan 1 sendok gula\n4. Tuang air panas\n5. Aduk sampai larut\n6. Kopi siap diminum</pre><p>Lihat? Detail & urut. Komputer juga butuh perintah sejelas ini.</p><h2>Latihan Otak Programmer</h2><p><b>Soal:</b> Gimana algoritma nyebrang jalan?</p><p><b>Jawab:</b></p><ol><li>Berhenti di pinggir jalan</li><li>Tengok kanan</li><li>Tengok kiri</li><li>Kalo aman, jalan</li><li>Kalo gak aman, ulangi dari langkah 2</li></ol><p>Langkah 5 itu namanya <b>loop

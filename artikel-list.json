@@ -1,0 +1,8 @@
+[
+  {
+    "judul": "Resolving GitHub Pages DNS Issues & JSON Parsing Errors",
+    "file": "artikel/solusi-dns-json.html",
+    "tanggal": "10 Juni 2026",
+    "deskripsi": "Catatan ringkas mengenai proses perbaikan sinkronisasi alamat IP DuckDNS menuju server GitHub Pages agar sistem custom domain kembali berjalan normal tanpa eror."
+  }
+]

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resolving DNS & JSON Issues - Yumeykha's Space</title>
+    <style>
+        body { background-color: #fcfbfa; color: #2d3748; font-family: -apple-system, sans-serif; padding: 40px 24px; line-height: 1.7; }
+        .container { max-width: 650px; margin: 0 auto; }
+        .back-btn { display: inline-block; color: #e5a99e; text-decoration: none; font-weight: 600; margin-bottom: 30px; font-size: 0.9rem; }
+        .back-btn:hover { color: #d49387; }
+        h1 { font-size: 1.8rem; color: #2d3748; margin-bottom: 8px; line-height: 1.4; }
+        .date { color: #e5a99e; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 30px; }
+        p { margin-bottom: 20px; color: #4a5568; }
+        .box { background: #ffffff; padding: 20px; border-radius: 8px; border: 1px solid #edf2f7; margin: 25px 0; font-family: monospace; font-size: 0.9rem; color: #e53e3e; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Tombol Kembali Otomatis ke halaman utama -->
+        <a href="../" class="back-btn">← Back to Dashboard</a>
+        
+        <h1>Resolving GitHub Pages DNS Issues & JSON Parsing Errors</h1>
+        <div class="date">10 Juni 2026</div>
+        
+        <p>Hari ini gua mendokumentasikan masalah sinkronisasi antara domain DuckDNS dan hosting GitHub Pages. Kasus eror JSON kemarin terjadi karena sistem mencoba memuat data, tetapi jalurnya terputus akibat IP DuckDNS yang berubah otomatis kembali ke IP internet rumah.</p>
+        
+        <p>Solusi yang berhasil diterapkan adalah mengunci IP server resmi GitHub Pages langsung di dasbor DuckDNS dan memastikan struktur file CNAME sudah bersih tanpa embel-embel protokol tautan.</p>
+        
+        <div class="box">
+            Status: FIXED // IP Locked to 185.199.108.153
+        </div>
+    </div>
+</body>
+</html>

@@ -1,8 +1,14 @@
 [
   {
-    "judul": "Resolving GitHub Pages DNS Issues & JSON Parsing Errors",
+    "judul": "Modul 01 // Web Architecture: Konfigurasi Custom Domain DNS pada GitHub Pages",
     "file": "artikel/solusi-dns-json.html",
-    "tanggal": "10 Juni 2026",
-    "deskripsi": "Catatan ringkas mengenai proses perbaikan sinkronisasi alamat IP DuckDNS menuju server GitHub Pages agar sistem custom domain kembali berjalan normal tanpa eror."
+    "tanggal": "11 JUNI 2026",
+    "deskripsi": "Pembelajaran mengenai sistem routing domain. Fokus pada sinkronisasi A-Record IP Address dari penyedia layanan DDNS (DuckDNS) menuju server hosting statis GitHub Pages untuk aktivasi HTTPS."
+  },
+  {
+    "judul": "Modul 02 // Data Structure: Penanganan Syntax Error pada Dokumen Berformat JSON",
+    "file": "artikel/eror-json.html",
+    "tanggal": "11 JUNI 2026",
+    "deskripsi": "Studi kasus mengenai validasi struktur data JavaScript Object Notation (JSON). Analisis penyebab kegagalan parsing akibat kesalahan penempatan karakter koma dan tanda kutip pada variabel global."
   }
 ]
